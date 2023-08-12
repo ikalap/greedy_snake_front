@@ -1,10 +1,13 @@
 <script setup>
 import Kalpa from './components/Kalpa.vue'
+import Timer from './components/Timer.vue'
+import Sneak from './components/Sneak.vue'
 </script>
 
 <template>
   <main>
-    <Kalpa />
+<!--    <Kalpa />-->
+    <Sneak />
   </main>
 </template>
 
