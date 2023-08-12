@@ -69,7 +69,6 @@ function move(){
   judgeEatApple()
   // 移动后对头节点进行是否死亡判断
   judgeDeath(sneak.value[0].x, sneak.value[0].y)
-
 }
 
 // 贪吃蛇是否吃到了食物
