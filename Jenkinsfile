@@ -1,9 +1,22 @@
 pipeline {
-    agent { docker 'node:6.3' }
+    agent {
+        docker {
+            image 'node:18.15.0-alpine'
+            args '-p 5173:5173'
+        }
+    }
+    environment {
+        CI = 'true'
+    }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'npm --version'
+                sh 'npm install'
+            }
+        }
+        stage('Deliver') {
+            steps {
+                sh 'npm run dev'
             }
         }
     }
