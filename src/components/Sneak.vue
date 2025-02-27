@@ -1,5 +1,15 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, ref, defineProps } from "vue";
+
+// 父组件传递过来获取当前难度
+const props = defineProps({
+  difficulty: {
+    type: String,
+    default: 'normal'
+  }
+});
+// 根据 difficulty 设置游戏难度
+console.log('当前难度:', props.difficulty);
 
 // l 左 r 右 u 上 d 下
 // 游戏的上下文信息
@@ -24,6 +34,8 @@ const env = ref({
   imgSrc: {'l': "/src/assets/images/left.png", 'r': "/src/assets/images/right.png", 'u': '/src/assets/images/up.png', 'd':'/src/assets/images/down.png', 'body':'/src/assets/images/body.png'},
   // 键盘keycode与方向的映射
   keyAndDirectionMap: {38: 'u', 40: 'd', 37:'l', 39:'r'},
+  // 难度对应的速度
+  difficultyMap: {'easy': 3, 'normal': 5, 'hard': 7, 'nightmare': 10},
 })
 // 定义贪吃蛇的对象存储
 const sneak = ref([{x: Math.round( Math.random() * (env.value['winWidth'])),
@@ -120,8 +132,10 @@ function handKeyCode(e){
 onMounted(() => {
   // 组件加载时就挂载对于键盘的监听，用于控制贪吃蛇方向
   window.addEventListener('keydown', handKeyCode, true)
-  // 每隔一段时间自动触发移动
-  env.value['intervalId'] = setInterval(move,1000 / env.value['speed'])
+  // 每隔一段时间自动触发移动- 速度根据父组件传过来的难度选择
+  const speed = 1000 / env.value.difficultyMap[props.difficulty];
+  console.log("speed:", speed);
+  env.value['intervalId'] = setInterval(move,speed);
 })
 
 </script>
