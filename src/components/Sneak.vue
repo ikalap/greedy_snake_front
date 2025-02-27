@@ -1,5 +1,7 @@
 <script setup>
-import {onMounted, ref, defineProps } from "vue";
+import {onMounted, ref, defineProps,defineEmits } from "vue";
+const emit = defineEmits(['game-over']);
+
 
 // 父组件传递过来获取当前难度
 const props = defineProps({
@@ -110,6 +112,8 @@ function judgeDeath(x, y){
   if(x < 0 || x > env.value['winWidth'] || y < 0 || y > env.value['winHeight']){
     window.clearInterval(env.value['intervalId']);
     env.value['isDeath'] = true
+    emit('game-over');
+
     return true;
   }
 }
@@ -148,7 +152,6 @@ onMounted(() => {
   <div v-for = "apple in apples" :key="apple">
     <img src="../assets/images/food.png" class="apple fixed_0" :style="{transform: `translate(${apple[0]}px, ${apple[1]}px)`}" alt="苹果"/>
   </div>
-  <h1 v-if="env['isDeath']" class="over">GAME OVER!</h1>
 </template>
 
 <style scoped>
