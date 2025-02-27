@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  greedy_snake:
+    build: ./
+    container_name: greedy_snake
+    ports:
+      - "8001:80"
+    networks:
+      - 1panel-network
+
+networks:
+  1panel-network:
+    external: true
