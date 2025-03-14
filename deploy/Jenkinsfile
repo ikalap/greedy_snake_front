@@ -1,24 +1,16 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18.15.0-alpine'
-            args '-p 4173:4173'
-        }
-    }
-    environment {
-        CI = 'true'
-    }
+    agent any
+
     stages {
-        stage('Build') {
+        stage('Build & Deploy') {
             steps {
-                sh 'npm install'
+                sh 'docker-compose up -d'
             }
         }
-        stage('Deliver') {
+
+        stage('Finish') {
             steps {
-                sh 'sh ./jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh 'sh ./jenkins/scripts/kill.sh'
+                sh 'echo "部署成功"'
             }
         }
     }
