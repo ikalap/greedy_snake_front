@@ -8,8 +8,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # 查看一下当前的路径
-RUN pwd
-RUN ls
+RUN --no-cache=true pwd
+RUN --no-cache=true ls
 
 # 安装项目依赖
 RUN npm install
