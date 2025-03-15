@@ -5,8 +5,8 @@ pipeline {
         stage('Build & Deploy') {
             steps {
                 sh 'ls'
-//                 sh 'docker-compose -f deploy/docker-compose.yml up -d'
-                sh 'docker build -t snake-front --no-cache . -f deploy/Dockerfile'
+                sh 'docker-compose -f deploy/docker-compose.yml up -d'
+//                 sh 'docker build -t snake-front --no-cache . -f deploy/Dockerfile'
             }
         }
 

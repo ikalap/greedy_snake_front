@@ -1,19 +1,12 @@
+# 该文件构建时的构建上下文应该是项目的根目录，所以路径都要相对于项目根目录来设置，而不是当前目录
 # 使用Node.js官方镜像作为构建环境
 FROM node:20 as build-stage
 
 # 设置工作目录
 WORKDIR /app
 
-# 查看一下当前的路径
-RUN pwd
-RUN ls
-
 # 复制package.json和package-lock.json
 COPY package*.json ./
-
-# 查看一下当前的路径
-RUN pwd
-RUN ls
 
 # 安装项目依赖
 RUN npm install

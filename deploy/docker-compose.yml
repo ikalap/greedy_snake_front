@@ -1,6 +1,7 @@
 services:
   greedy_snake:
-    build: .
+    # 构建上下文需要使用项目根目录哦
+    build: ..
     container_name: greedy_snake
     ports:
       - "8001:80"
