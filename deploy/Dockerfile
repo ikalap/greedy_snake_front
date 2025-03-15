@@ -5,7 +5,7 @@ FROM node:20 as build-stage
 WORKDIR /app
 
 # 复制package.json和package-lock.json
-COPY package*.json ./
+COPY ../package*.json ./
 
 # 安装项目依赖
 RUN npm install
