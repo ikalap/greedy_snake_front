@@ -1,7 +1,7 @@
 <template>
   <div class="instructions">
-    <h1>游戏说明</h1>
-    <p>使用 w a s d 或者 方向键来控制移动</p>
+    <h1>游戏说明:</h1>
+    <p>使用 w a s d 或 方向键来控制移动</p>
     <p>使用 p 暂停游戏</p>
     <button @click="closeInstructions">关闭</button>
   </div>
