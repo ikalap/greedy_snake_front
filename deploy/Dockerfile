@@ -9,7 +9,7 @@ RUN pwd
 RUN ls
 
 # 复制package.json和package-lock.json
-COPY ../package*.json ./
+COPY package*.json ./
 
 # 查看一下当前的路径
 RUN pwd
