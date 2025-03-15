@@ -5,7 +5,7 @@ pipeline {
         stage('Build & Deploy') {
             steps {
                 sh 'ls'
-                sh 'docker-compose up -d'
+                sh 'docker-compose up -f deploy/docker-compose.yml -d'
             }
         }
 

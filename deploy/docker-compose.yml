@@ -1,6 +1,6 @@
 services:
   greedy_snake:
-    build: ..
+    build: .
     container_name: greedy_snake
     ports:
       - "8001:80"
