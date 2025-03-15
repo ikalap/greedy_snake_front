@@ -4,6 +4,10 @@ FROM node:20 as build-stage
 # 设置工作目录
 WORKDIR /app
 
+# 查看一下当前的路径
+RUN pwd
+RUN ls
+
 # 复制package.json和package-lock.json
 COPY package*.json ./
 
