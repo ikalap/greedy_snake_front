@@ -10,7 +10,7 @@ pipeline {
 
         stage('Finish') {
             steps {
-                sh 'echo "部署成功"'
+                sh 'echo "部署成功"了'
             }
         }
     }
