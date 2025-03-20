@@ -4,9 +4,16 @@ pipeline {
 
     environment {
         PROJECT_NAME = 'greedy_snake_front'
+        IMAGE_NAME = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
     }
 
     stages {
+        stage('打印环境变量'){
+            steps{
+                echo '${PROJECT_NAME}'
+                echo '${IMAGE_NAME}'
+            }
+        }
 
         stage('构建和发布Docker镜像') {
             steps {
@@ -33,9 +40,9 @@ pipeline {
                 script {
                     sh """
                         echo '将k8s部署文件deployment中的image:tag更改为"${env.JOB_NAME}-${env.BUILD_NUMBER}'
-                        sed -i "s/{image_name}/${env.JOB_NAME}/" deployment.yml
-                        sed -i "s/{image_tag}/${env.BUILD_NUMBER}/" deployment.yml
-                        sed -i "s/{image_tag}/${env.BUILD_NUMBER}/" deployment.yml
+                        sed -i "s/{image_name}/${env.JOB_NAME}/" deploy/deployment.yml
+                        sed -i "s/{image_tag}/${env.BUILD_NUMBER}/" deploy/deployment.yml
+                        sed -i "s/{image_tag}/${env.BUILD_NUMBER}/" deploy/deployment.yml
                     """                }
             }
         }
@@ -43,7 +50,10 @@ pipeline {
         stage('部署k8s') {
             steps {
                 sh """
-                    kubectl apply -f deployment.yml                    kubectl rollout status deployment/kalpa-home                """            }
+                   kubectl apply -f deployment.yml
+                   kubectl rollout status deployment/kalpa-home
+                   """
+            }
         }
     }
 
@@ -53,4 +63,5 @@ pipeline {
 //             sh ''' docker rmi -f $(docker images -q)  '''
         }
     }
+
 }
