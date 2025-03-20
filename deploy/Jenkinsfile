@@ -20,10 +20,7 @@ pipeline {
                 sh 'docker version'
 
                 script {
-                    sh """
-//                         export IMAGE_TAG=${dockerImageName}
-                        docker build -t ${IMAGE_NAME} -f ./deploy/Dockerfile .
-                       """
+                    sh "docker build -t ${IMAGE_NAME} -f ./deploy/Dockerfile ."
 //                     sh """
 //                         echo 'push到本地镜像仓库里面'
 //                         docker tag ${dockerImageName} localhost:30500/${dockerImageName}
