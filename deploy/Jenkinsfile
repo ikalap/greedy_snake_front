@@ -3,15 +3,13 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_NAME = 'greedy_snake_front'
-        IMAGE_NAME = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
+        PROJECT_NAME = "greedy_snake_front"
+        IMAGE_NAME = "${PROJECT_NAME}:${env.BUILD_NUMBER}"
     }
 
     stages {
         stage('打印环境变量'){
             steps{
-                echo '${PROJECT_NAME}'
-                echo '${IMAGE_NAME}'
                 echo "${PROJECT_NAME}"
                 echo "${IMAGE_NAME}"
             }
@@ -22,11 +20,9 @@ pipeline {
                 sh 'docker version'
 
                 script {
-                    def dockerImageName = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
                     sh """
-                        echo '使用${dockerImageName}镜像部署'
-                        export IMAGE_TAG=${dockerImageName}
-                        docker build -t ${dockerImageName} -f ./deploy/Dockerfile .
+//                         export IMAGE_TAG=${dockerImageName}
+                        docker build -t ${IMAGE_NAME} -f ./deploy/Dockerfile .
                        """
 //                     sh """
 //                         echo 'push到本地镜像仓库里面'
@@ -41,11 +37,12 @@ pipeline {
             steps {
                 script {
                     sh """
-                        echo '将k8s部署文件deployment中的image:tag更改为"${env.JOB_NAME}-${env.BUILD_NUMBER}'
-                        sed -i "s/{image_name}/${env.JOB_NAME}/" deploy/deployment.yml
-                        sed -i "s/{image_tag}/${env.BUILD_NUMBER}/" deploy/deployment.yml
-                        sed -i "s/{image_tag}/${env.BUILD_NUMBER}/" deploy/deployment.yml
-                    """                }
+                        echo '更新k3s.yaml中的项目名称和镜像名称'
+                        sed -i "s/{PROJECT_NAME}/${PROJECT_NAME}/" deploy/k8s.yml
+                        sed -i "s/{IMAGE_NAME}/${IMAGE_NAME}/" deploy/k8s.yml
+                        cat deploy/k8s.yml
+                    """
+                }
             }
         }
 
