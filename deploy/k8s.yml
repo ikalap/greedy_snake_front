@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kalpa-home
+  labels:
+    app: kalpa-home
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kalpa-home
+  template:
+    metadata:
+      labels:
+        app: kalpa-home
+    spec:
+      containers:
+        - name: kalpa-home
+          #         这里的镜像会被jenkins 使用sed -i 命令自动替换
+          image: localhost:30500/{image_name}-{image_tag}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JAVA_OPTS
+              value: "-Xmx512m -Xms512m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kalpa-home
+spec:
+  selector:
+    app: kalpa-home
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 80
+  type: ClusterIP

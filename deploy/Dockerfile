@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # 复制项目文件
-COPY . .
+COPY .. .
 
 # 构建Vue应用
 RUN npm run build
