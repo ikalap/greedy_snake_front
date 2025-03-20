@@ -10,6 +10,8 @@ pipeline {
 
         stage('构建和发布Docker镜像') {
             steps {
+                sh 'docker version'
+
                 script {
                     def dockerImageName = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
                     sh """
