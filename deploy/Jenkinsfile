@@ -46,7 +46,7 @@ pipeline {
         stage('部署k8s') {
             steps {
                 sh """
-                   kubectl apply -f deploy/k3s.yml
+                   kubectl apply -f deploy/k8s.yml
                    kubectl rollout status deployment/${PROJECT_NAME}
                    """
             }
