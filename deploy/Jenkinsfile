@@ -12,6 +12,8 @@ pipeline {
             steps{
                 echo '${PROJECT_NAME}'
                 echo '${IMAGE_NAME}'
+                echo "${PROJECT_NAME}"
+                echo "${IMAGE_NAME}"
             }
         }
 
