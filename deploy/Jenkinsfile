@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_NAME = "greedy_snake_front"
+        PROJECT_NAME = "greedy-snake-front"
         IMAGE_NAME = "${PROJECT_NAME}:${env.BUILD_NUMBER}"
     }
 
