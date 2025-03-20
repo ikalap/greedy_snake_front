@@ -1,10 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        PROJECT_NAME = 'greedy_snake_front'
+    }
+
     stages {
-        environment {
-            PROJECT_NAME = 'greedy_snake_front'
-        }
 
         stage('构建和发布Docker镜像') {
             steps {
