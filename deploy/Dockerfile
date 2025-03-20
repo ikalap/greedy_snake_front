@@ -1,3 +1,4 @@
+# 该文件构建时的构建上下文应该是项目的根目录，所以路径都要相对于项目根目录来设置，而不是当前目录
 # 使用Node.js官方镜像作为构建环境
 FROM node:20 as build-stage
 
@@ -11,7 +12,7 @@ COPY package*.json ./
 RUN npm install
 
 # 复制项目文件
-COPY .. .
+COPY ./ ./
 
 # 构建Vue应用
 RUN npm run build
