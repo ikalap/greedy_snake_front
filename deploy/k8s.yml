@@ -17,7 +17,7 @@ spec:
       containers:
         - name: {PROJECT_NAME}
           #         这里的镜像会被jenkins 使用sed -i 命令自动替换
-          image: {IMAGE_NAME}
+          image: registry.k8s.io/{IMAGE_NAME}
           ports:
             - containerPort: 80
           env:
