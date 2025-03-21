@@ -6,6 +6,8 @@ pipeline {
         PROJECT_NAME = "greedy-snake-front"
         IMAGE_NAME = "${PROJECT_NAME}:${env.BUILD_NUMBER}"
         DOMAIN = "greedy-snake.ikalpa.site"
+        REGISTRY_URL = "docker-registry-service.kube-system.svc.cluster.local:5000"
+        FULL_IMAGE_NAME = "${REGISTRY_URL}/${PROJECT_NAME}:${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -22,11 +24,8 @@ pipeline {
 
                 script {
                     sh "docker build -t ${IMAGE_NAME} -f ./deploy/Dockerfile ."
-//                     sh """
-//                         echo 'push到本地镜像仓库里面'
-//                         docker tag ${dockerImageName} localhost:30500/${dockerImageName}
-//                         docker push localhost:30500/${dockerImageName}
-//                     """
+                    sh "docker tag ${IMAGE_NAME} ${FULL_IMAGE_NAME}"
+                    sh "docker push ${FULL_IMAGE_NAME}"
                 }
             }
         }
@@ -37,7 +36,7 @@ pipeline {
                     sh """
                         echo '更新k3s.yaml中的项目名称和镜像名称'
                         sed -i "s/{PROJECT_NAME}/${PROJECT_NAME}/" deploy/k8s.yml
-                        sed -i "s/{IMAGE_NAME}/${IMAGE_NAME}/" deploy/k8s.yml
+                        sed -i "s/{IMAGE_NAME}/${FULL_IMAGE_NAME}/" deploy/k8s.yml
                         sed -i "s/{DOMAIN}/${DOMAIN}/" deploy/k8s.yml
                         cat deploy/k8s.yml
                     """
@@ -48,7 +47,6 @@ pipeline {
         stage('部署k8s') {
             steps {
                 sh """
-
                    kubectl apply -f deploy/k8s.yml
                    kubectl rollout status deployment/${PROJECT_NAME}
                    """
