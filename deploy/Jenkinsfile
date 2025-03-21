@@ -5,6 +5,7 @@ pipeline {
     environment {
         PROJECT_NAME = "greedy-snake-front"
         IMAGE_NAME = "${PROJECT_NAME}:${env.BUILD_NUMBER}"
+        DOMAIN = "greedy-snake.ikalpa.site"
     }
 
     stages {
@@ -37,6 +38,7 @@ pipeline {
                         echo '更新k3s.yaml中的项目名称和镜像名称'
                         sed -i "s/{PROJECT_NAME}/${PROJECT_NAME}/" deploy/k8s.yml
                         sed -i "s/{IMAGE_NAME}/${IMAGE_NAME}/" deploy/k8s.yml
+                        sed -i "s/{DOMAIN}/${DOMAIN}/" deploy/k8s.yml
                         cat deploy/k8s.yml
                     """
                 }
