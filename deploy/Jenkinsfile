@@ -6,7 +6,7 @@ pipeline {
         PROJECT_NAME = "greedy-snake-front"
         IMAGE_NAME = "${PROJECT_NAME}:${env.BUILD_NUMBER}"
         DOMAIN = "greedy-snake.ikalpa.site"
-        REGISTRY_URL = "docker-registry-service.kube-system.svc.cluster.local:5000"
+        REGISTRY_URL = "docker-registry-service:5000"
         FULL_IMAGE_NAME = "${REGISTRY_URL}/${PROJECT_NAME}:${env.BUILD_NUMBER}"
     }
 
