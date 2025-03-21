@@ -3,10 +3,8 @@ pipeline {
 //     agent any
     agent {
         kubernetes {
-            label 'my-pod'
+            inheritFrom 'default'
             yaml """
-            apiVersion: v1
-            kind: Pod
             spec:
               containers:
               - name: node
