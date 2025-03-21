@@ -36,3 +36,21 @@ spec:
       port: 80
       targetPort: 80
   type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {PROJECT_NAME}
+spec:
+  rules:
+    - host: {DOMAIN}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {PROJECT_NAME}
+                port:
+                  number: 80
