@@ -2,7 +2,7 @@ pipeline {
 
     agent {
         kubernetes {
-            inheritFrom 'node20'
+            inheritFrom 'default'
             yaml """
             spec:
               containers:
@@ -33,15 +33,6 @@ pipeline {
     }
 
     stages {
-        podTemplate{
-            node('defualt'){
-                stage('Run shell') {
-                        sh 'echo hello world'
-                    }
-            }
-
-        }
-
         stage('打印环境变量'){
             steps{
                 echo "${PROJECT_NAME}"
