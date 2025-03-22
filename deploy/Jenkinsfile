@@ -15,7 +15,7 @@ pipeline {
     }
 
     stages {
-        stag('打印环境变量'){
+        stage ('打印环境变量'){
             steps{
                 echo "${PROJECT_NAME}"
                 echo "${IMAGE_NAME}"
