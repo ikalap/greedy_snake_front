@@ -25,7 +25,7 @@ pipeline {
         stage('构建和发布Docker镜像') {
             steps {
                 container('docker') {
-                    sh 'docker version'
+//                     sh 'docker version'
 
                     script {
                         sh "docker build -t ${IMAGE_NAME} -f ./deploy/Dockerfile ."
