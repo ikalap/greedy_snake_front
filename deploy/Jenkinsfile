@@ -24,9 +24,14 @@ pipeline {
 
         stage('构建和发布Docker镜像') {
             steps {
-                container('kaniko') {
-                    sh 'kaniko version'
-                    sh "kaniko -f deploy/Dockerfile -c ./ -d http://124.223.74.95:5000/:${FULL_IMAGE_NAME}"
+                container('docker') {
+                    sh 'docker version'
+
+                    script {
+                        sh "docker build -t ${IMAGE_NAME} -f ./deploy/Dockerfile ."
+                        sh "docker tag ${IMAGE_NAME} ${FULL_IMAGE_NAME}"
+                        sh "docker push ${FULL_IMAGE_NAME}"
+                    }
                 }
             }
         }
