@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
+  base: '/greedy_snake_front/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
