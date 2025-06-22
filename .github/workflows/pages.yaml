@@ -6,16 +6,13 @@ jobs:
     steps:
       - name: Build static files
         id: build
-        run: |
-          # 为简洁起见未提供
-          # 至少这一步应构建您网站的静态文件
-        # 为简洁起见未提供
+        run: npm run build
 
       - name: Upload static files as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build_outputs_folder/
+          path: dist/
 
   # 部署任务
   deploy:
