@@ -1,6 +1,0 @@
-# docker忽略文件夹
-node_modules/
-
-.vscode/
-
-.idea/

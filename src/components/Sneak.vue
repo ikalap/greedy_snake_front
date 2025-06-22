@@ -1,5 +1,11 @@
 <script setup>
 import {onMounted, ref, defineProps,defineEmits } from "vue";
+import foodImage from '@/assets/images/greedy_snake/apple.svg'
+import leftImage from '@/assets/images/greedy_snake/left.svg'
+import rightImage from '@/assets/images/greedy_snake/right.svg'
+import upImage from '@/assets/images/greedy_snake/up.svg'
+import downImage from '@/assets/images/greedy_snake/down.svg'
+import bodyImage from '@/assets/images/greedy_snake/body.svg'
 const emit = defineEmits(['game-over']);
 
 
@@ -33,7 +39,7 @@ const env = ref({
   // 各种方向移动时x坐标与y坐标的增减
   moveMap: {'l': [-50, 0], 'r':[50, 0], 'u':[0, -50], 'd': [0, 50]},
   // 各个方向对应的图片
-  imgSrc: {'l': "/src/assets/images/left.png", 'r': "/src/assets/images/right.png", 'u': '/src/assets/images/up.png', 'd':'/src/assets/images/down.png', 'body':'/src/assets/images/body.png'},
+  imgSrc: {'l': leftImage, 'r': rightImage, 'u': upImage, 'd': downImage, 'body': bodyImage},
   // 键盘keycode与方向的映射
   keyAndDirectionMap: {38: 'u', 40: 'd', 37:'l', 39:'r'},
   // 难度对应的速度
@@ -149,8 +155,8 @@ onMounted(() => {
   <div v-for = "node in sneak" :key="node.key">
     <img :src="node === sneak[0] ? env.imgSrc[node.direction] : env.imgSrc['body']" class="node fixed_0" :style="{transform: `translate(${node.x}px, ${node.y}px)`}" alt="蛇"/>
   </div>
-  <div v-for = "apple in apples" :key="apple">
-    <img src="../assets/images/food.png" class="apple fixed_0" :style="{transform: `translate(${apple[0]}px, ${apple[1]}px)`}" alt="苹果"/>
+  <div v-for="apple in apples" :key="apple">
+    <img :src="foodImage" class="apple fixed_0" :style="{transform: `translate(${apple[0]}px, ${apple[1]}px)`}" alt="苹果"/>
   </div>
 </template>
 
