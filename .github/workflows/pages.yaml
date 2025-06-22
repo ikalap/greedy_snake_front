@@ -24,6 +24,11 @@ jobs:
 
   # 部署任务
   deploy:
+    # 授予 GITHUB_TOKEN进行 Pages 部署所需的权限
+    permissions:
+      pages: write      # 部署pages
+      id-token: write   # 验证部署源自适当的源
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
