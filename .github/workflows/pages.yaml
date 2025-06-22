@@ -1,6 +1,6 @@
 name: GitHub Pages Actions
 run-name: ${{ github.actor }} is testing out GitHub Pages 🚀
-on: [push]
+on: push
 
 jobs:
   # 构建任务
