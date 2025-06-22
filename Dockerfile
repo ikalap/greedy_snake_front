@@ -12,7 +12,7 @@ COPY package*.json ./
 RUN npm install
 
 # 复制项目文件
-COPY .github/workflows ./
+COPY ./. ./
 
 # 构建Vue应用
 RUN npm run build
